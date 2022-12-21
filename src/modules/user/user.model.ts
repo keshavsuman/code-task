@@ -1,4 +1,5 @@
 import { Schema, model, Document } from "mongoose";
+import { generateHash } from "./user.service";
 
 export enum Role {
   Admin = "admin",
@@ -32,6 +33,11 @@ const userSchema: Schema = new Schema<User>({
     enum: Role,
     default: Role.Employee,
   },
+});
+
+userSchema.pre("save", function (next) {
+  this.password = generateHash(this.password);
+  next();
 });
 
 export default model<User>("user", userSchema);

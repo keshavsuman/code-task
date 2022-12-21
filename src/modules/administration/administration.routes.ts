@@ -4,7 +4,7 @@ import * as administrationController from "./administration.controller";
 
 const routes = Router();
 
-routes.post("/", verify, administrationController.createRole);
-routes.put("/:id", verify, administrationController.updateRole);
+routes.post("/", verify(["admin"]), administrationController.createRole);
+routes.put("/:id", verify(["admin"]), administrationController.updateRole);
 
 export default routes;

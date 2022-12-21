@@ -1,6 +1,11 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Document } from "mongoose";
 
-const administrationSchema: Schema = new Schema(
+export interface Administration extends Document {
+  role: string;
+  modules: string[];
+}
+
+const administrationSchema: Schema = new Schema<Administration>(
   {
     role: {
       type: String,
@@ -12,4 +17,4 @@ const administrationSchema: Schema = new Schema(
   }
 );
 
-export default model("administration", administrationSchema);
+export default model<Administration>("administration", administrationSchema);
